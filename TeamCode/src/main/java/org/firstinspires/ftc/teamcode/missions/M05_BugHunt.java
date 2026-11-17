@@ -19,17 +19,19 @@ public class M05_BugHunt extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        DcMotor leftDrive = hardwareMap.get(DcMotor.class, "left_drve");
+        DcMotor leftDrive = hardwareMap.get(DcMotor.class, "left_drive");
         DcMotor rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
         leftDrive.setDirection(DcMotor.Direction.REVERSE);
 
         telemetry.addData("Status", "Ready to go!");
         telemetry.update();
 
+        waitForStart();
+
         // Drive forward
-        leftDrive.setPower(0.5);
-        rightDrive.setPower(-0.5);
-        sleep(3400);
+        leftDrive.setPower(1);
+        rightDrive.setPower(1);
+        sleep(1600);
 
         // Stop
         leftDrive.setPower(0);

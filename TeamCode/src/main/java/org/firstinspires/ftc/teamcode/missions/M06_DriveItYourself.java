@@ -28,15 +28,15 @@ public class M06_DriveItYourself extends LinearOpMode {
         DcMotor rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
         leftDrive.setDirection(DcMotor.Direction.REVERSE);
 
-        double maxSpeed = 0.5;
+        double maxSpeed = 1;
 
         waitForStart();
 
         // Everything inside this loop runs over and over, many times a second, until STOP.
         while (opModeIsActive()) {
             // Pushing a stick UP gives a NEGATIVE number, so we flip it with a minus sign.
-            double leftPower = -gamepad1.left_stick_y * maxSpeed;
-            double rightPower = -gamepad1.right_stick_y * maxSpeed;
+            double leftPower = (-gamepad1.left_stick_y + gamepad1.left_stick_x) * maxSpeed;
+            double rightPower = (-gamepad1.left_stick_y - gamepad1.left_stick_x) * maxSpeed;
 
             leftDrive.setPower(leftPower);
             rightDrive.setPower(rightPower);
@@ -44,6 +44,7 @@ public class M06_DriveItYourself extends LinearOpMode {
             telemetry.addData("Left power", leftPower);
             telemetry.addData("Right power", rightPower);
             telemetry.update();
+
         }
     }
 }

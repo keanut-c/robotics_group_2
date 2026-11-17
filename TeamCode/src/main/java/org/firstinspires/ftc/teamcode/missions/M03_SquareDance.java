@@ -26,14 +26,14 @@ public class M03_SquareDance extends LinearOpMode {
         waitForStart();
 
         // Side 1: drive forward
-        leftDrive.setPower(0.5);
-        rightDrive.setPower(0.5);
-        sleep(2400);
+        leftDrive.setPower(1);
+        rightDrive.setPower(1);
+        sleep(600);
 
         // Turn left
-        leftDrive.setPower(-0.5);
-        rightDrive.setPower(0.5);
-        sleep(600);
+        leftDrive.setPower(0.6);
+        rightDrive.setPower(1);
+        sleep(6000);
 
         // Side 2: ???
 

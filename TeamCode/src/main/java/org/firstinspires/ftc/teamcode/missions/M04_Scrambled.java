@@ -24,25 +24,33 @@ public class M04_Scrambled extends LinearOpMode {
         DcMotor rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
         leftDrive.setDirection(DcMotor.Direction.REVERSE);
 
+        waitForStart();
+
         // stop
         leftDrive.setPower(0);
         rightDrive.setPower(0);
 
         // drive to the box
-        leftDrive.setPower(0.5);
-        rightDrive.setPower(0.5);
-        sleep(2350);
-
-        waitForStart();
+        leftDrive.setPower(1);
+        rightDrive.setPower(1);
+        sleep(910);
 
         // turn right
-        leftDrive.setPower(0.5);
-        rightDrive.setPower(-0.5);
-        sleep(600);
+        leftDrive.setPower(1);
+        rightDrive.setPower(0.8);
+        sleep(300);
 
         // drive through the gate
-        leftDrive.setPower(0.5);
-        rightDrive.setPower(0.5);
-        sleep(4200);
+        leftDrive.setPower(1);
+        rightDrive.setPower(0.4);
+        sleep(360);
+
+        leftDrive.setPower(1);
+        rightDrive.setPower(0.2);
+        sleep(160);
+
+        leftDrive.setPower(1);
+        rightDrive.setPower(1);
+        sleep(720);
     }
 }

@@ -44,22 +44,24 @@ public class M07_StopAtTape extends LinearOpMode {
         while (opModeInInit()) {
             telemetry.addData("Brightness", "%.3f", getBrightness());
             telemetry.addData("Threshold", BLACK_THRESHOLD);
+            telemetry.addData("Threshold", BLACK_THRESHOLD);
             telemetry.update();
         }
 
-        leftDrive.setPower(0.3);
-        rightDrive.setPower(0.3);
+        leftDrive.setPower(1);
+        rightDrive.setPower(1);
 
         // Keep driving while the sensor sees the floor
         while (opModeIsActive() && getBrightness() < BLACK_THRESHOLD) {
             telemetry.addData("Looking for tape. Brightness", "%.3f", getBrightness());
             telemetry.update();
-        }
 
-        // Found the tape: stop
-        leftDrive.setPower(0);
-        rightDrive.setPower(0);
-        sleep(1000);
+            if (getBrightness() < 0.01) {
+                leftDrive.setPower(0);
+                rightDrive.setPower(0);
+                sleep(2000);
+            }
+        }
     }
 
     /** How bright the floor under the sensor is: 0.0 = black, 1.0 = white. */

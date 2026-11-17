@@ -19,37 +19,39 @@ import com.qualcomm.robotcore.util.Range;
  */
 
 @TeleOp(name = "L06 Arcade Drive", group = "Lessons")
-@Disabled  // Hides this ORIGINAL from the menu. Delete this line in YOUR copy so your copy shows up.
+ // Hides this ORIGINAL from the menu. Delete this line in YOUR copy so your copy shows up.
 public class L06_ArcadeDrive extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        DcMotor leftDrive = hardwareMap.get(DcMotor.class, "left_drive");
-        DcMotor rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
-        leftDrive.setDirection(DcMotor.Direction.REVERSE);
+        DcMotor ULDrive = hardwareMap.get(DcMotor.class, "UL_drive");
+        DcMotor URDrive = hardwareMap.get(DcMotor.class, "UR_drive");
+        DcMotor BLDrive = hardwareMap.get(DcMotor.class, "BL_drive");
+        DcMotor BRDrive = hardwareMap.get(DcMotor.class, "BR_drive");
+        URDrive.setDirection(DcMotor.Direction.REVERSE);
+        BLDrive.setDirection(DcMotor.Direction.REVERSE);
 
         double maxSpeed = 0.6;
 
         waitForStart();
 
+        // Everything inside this loop runs over and over, many times a second, until STOP.
         while (opModeIsActive()) {
-            double drive = -gamepad1.left_stick_y;
-            double turn = gamepad1.right_stick_x;
+            // Pushing a stick UP gives a NEGATIVE number, so we flip it with a minus sign.
+            double ULPower = (-gamepad1.left_stick_y + gamepad1.left_stick_x) * maxSpeed;
+            double URPower = (-gamepad1.left_stick_y + gamepad1.left_stick_x) * maxSpeed;
+            double BLPower = (-gamepad1.left_stick_y - gamepad1.left_stick_x) * maxSpeed;
+            double BRPower = (-gamepad1.left_stick_y - gamepad1.left_stick_x) * maxSpeed;
 
-            double leftPower = drive + turn;
-            double rightPower = drive - turn;
+            ULDrive.setPower(ULPower);
+            URDrive.setPower(URPower);
+            BLDrive.setPower(BLPower);
+            BRDrive.setPower(BRPower);
 
-            // drive + turn could be as big as 2.0, but motors only accept -1.0 to 1.0.
-            // Range.clip() "clips" a number so it stays between a min and a max.
-            leftPower = Range.clip(leftPower, -1.0, 1.0);
-            rightPower = Range.clip(rightPower, -1.0, 1.0);
-
-            leftDrive.setPower(leftPower * maxSpeed);
-            rightDrive.setPower(rightPower * maxSpeed);
-
-            // "%.2f" means "show this decimal number with 2 digits after the point"
-            telemetry.addData("Drive / Turn", "%.2f / %.2f", drive, turn);
-            telemetry.addData("Left / Right", "%.2f / %.2f", leftPower, rightPower);
+            telemetry.addData("front left power", ULPower);
+            telemetry.addData("front right power", URPower);
+            telemetry.addData("back left power", BLPower);
+            telemetry.addData("back right power", BRPower);
             telemetry.update();
         }
     }
